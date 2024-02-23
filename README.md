@@ -21,34 +21,43 @@ To implement univariate Linear Regression to fit a straight line using least squ
 Program to implement univariate Linear Regression to fit a straight line using least squares.
 Developed by: HARSSHITHA LAKSHMANAN
 RegisterNumber: 212223230075
-
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-df=pd.read_csv('/content/exp1data - Sheet1.csv')
-df.head(10)
-plt.scatter(df['x'],df['y'])
-plt.xlabel('x')
-plt.ylabel('y')
-x=df.iloc[:,0:1]
-y=df.iloc[:,-1]
-from sklearn.model_selection import train_test_split
-xtrain,xtest,ytrain,ytest=train_test_split(x,y,test_size=0.2,random_state=0)
-from sklearn.linear_model import LinearRegression
-lr=LinearRegression()
-lr.fit(xtrain,ytrain)
-xtrain
-ytrain
-lr.predict(xtest.iloc[0].values.reshape(1,1))
-plt.scatter(df['x'],df['y'])
-plt.xlabel('x')
-plt.ylabel('y')
-plt.plot(xtrain,lr.predict(xtrain),color='red')
+#preprocessing data input
+
+x=np.array(eval(input()))
+y=np.array(eval(input()))
+xmean=np.mean(x)
+ymean=np.mean(y)
+nume=0    #for slope
+denom=0   #for slope
+
+#to dind sum of(xi-x')&(yi-y')&(xi-x')^2
+for i in range(len(x)):
+    nume+=(x[i]-xmean)*(y[i]-ymean)
+    denom+=(x[i]-xmean)**2
+
+    #calculate slope
+    m=nume/denom
+
+    #calculate intercept
+    b=ymean-m*xmean
+    print(m,b)
+    #line equation
+    ypredicted=m*x+b
+    print(ypredicted)
+
+    #to plot graph
+    plt.scatter(x,y)
+    plt.plot(x,ypredicted,color='red')
+    plt.show()
+
 
 ```
 
 ## Output:
-![image](https://github.com/harshulaxman/Find-the-best-fit-line-using-Least-Squares-Method/assets/145686689/0f9b71eb-b72a-4d60-94d0-b286f8af7bf8)
+![image](https://github.com/harshulaxman/Find-the-best-fit-line-using-Least-Squares-Method/assets/145686689/df73a649-b987-4c0f-8d21-52b315cacddb)
+
 
 
 
